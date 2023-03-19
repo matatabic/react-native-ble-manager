@@ -410,7 +410,7 @@ class BleManager extends ReactContextBaseJavaModule {
             // }
             // Log.d(LOG_TAG, "Message(" + decoded.length + "): " + bytesToHex(decoded));
             byte [] decoded = strToHexByteArray(message);
-            peripheral.write(UUIDHelper.uuidFromString(serviceUUID), UUIDHelper.uuidFromString(characteristicUUID),
+            peripheral.writeOta(UUIDHelper.uuidFromString(serviceUUID), UUIDHelper.uuidFromString(characteristicUUID),
                     decoded, callback);
         } else
             callback.invoke("Peripheral not found");
