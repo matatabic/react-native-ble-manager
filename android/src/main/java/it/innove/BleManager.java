@@ -342,7 +342,7 @@ class BleManager extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void write(String deviceUUID, String serviceUUID, String characteristicUUID, ReadableArray message,
+    public void write(String deviceUUID, String serviceUUID, String characteristicUUID, String message,
                       Integer maxByteSize, Callback callback) {
         Log.d(LOG_TAG, "Write to: " + deviceUUID);
         if (serviceUUID == null || characteristicUUID == null) {
@@ -374,7 +374,7 @@ class BleManager extends ReactContextBaseJavaModule {
     
     @ReactMethod
     public void writeWithoutResponse(String deviceUUID, String serviceUUID, String characteristicUUID,
-                                     ReadableArray message, Integer maxByteSize, Integer queueSleepTime, Callback callback) {
+                                     String message, Integer maxByteSize, Integer queueSleepTime, Callback callback) {
         Log.d(LOG_TAG, "Write without response to: " + deviceUUID);
         if (serviceUUID == null || characteristicUUID == null) {
             callback.invoke("ServiceUUID and characteristicUUID required.");
@@ -396,7 +396,7 @@ class BleManager extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void writeOta(String deviceUUID, String serviceUUID, String characteristicUUID,
-                                     ReadableArray message, Callback callback) {
+                                     String message, Callback callback) {
         Log.d(LOG_TAG, "Write without response to: " + deviceUUID);
         if (serviceUUID == null || characteristicUUID == null) {
             callback.invoke("ServiceUUID and characteristicUUID required.");
