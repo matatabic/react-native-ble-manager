@@ -971,6 +971,31 @@ public class Peripheral extends BluetoothGattCallback {
         });
     }
 
+    public void writeOta(UUID serviceUUID, UUID characteristicUUID, byte[] data, Callback callback) {
+        enqueue(() -> {
+            if (!isConnected() || gatt == null) {
+                callback.invoke("Device is not connected", null);
+                completedCommand();
+                return;
+            }
+
+            BluetoothGattService service = gatt.getService(serviceUUID);
+            BluetoothGattCharacteristic characteristic = findWritableCharacteristic(service, characteristicUUID, BluetoothGattCharacteristic.WRITE_TYPE_NO_RESPONSE);
+
+            if (characteristic == null) {
+                callback.invoke("Characteristic " + characteristicUUID + " not found.");
+                completedCommand();
+                return;
+            }
+
+            if (!doWrite(characteristic, data, callback)) {
+                callback.invoke("Write failed");
+            }
+
+            completedCommand();
+        });
+    }
+
     public void requestConnectionPriority(int connectionPriority, Callback callback) {
         enqueue(() -> {
             if (gatt != null) {

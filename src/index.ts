@@ -174,6 +174,38 @@ class BleManager {
     });
   }
 
+  /**
+   * 
+   * @param peripheralId 
+   * @param serviceUUID 
+   * @param characteristicUUID 
+   * @param data data to write as an array of numbers (which can be converted from a Uint8Array (ByteArray) using something like [Buffer.toJSON().data](https://github.com/feross/buffer))
+   * @returns 
+   */
+  writeOta(
+    peripheralId: string,
+    serviceUUID: string,
+    characteristicUUID: string,
+    data: number[],
+  ) {
+
+    return new Promise<void>((fulfill, reject) => {
+      bleManager.writeOta(
+        peripheralId,
+        serviceUUID,
+        characteristicUUID,
+        data,
+        (error: string | null) => {
+          if (error) {
+            reject(error);
+          } else {
+            fulfill();
+          }
+        }
+      );
+    });
+  }
+  
   connect(peripheralId: string) {
     return new Promise<void>((fulfill, reject) => {
       bleManager.connect(peripheralId, (error: string | null) => {
